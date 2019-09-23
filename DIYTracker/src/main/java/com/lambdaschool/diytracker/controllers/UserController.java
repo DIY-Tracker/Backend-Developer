@@ -81,6 +81,7 @@ public class UserController
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
         return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
+
     }
 
 
