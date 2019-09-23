@@ -80,7 +80,7 @@ public class UserController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findByName(authentication.getName()), HttpStatus.OK);
 
     }
 
