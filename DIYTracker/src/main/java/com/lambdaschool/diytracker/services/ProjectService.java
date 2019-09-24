@@ -10,7 +10,7 @@ public interface ProjectService {
 
     Project findProjectById(long id);
 
-    Project findByName(String name);
+   // Project findByName(String name);
 
     void delete(long id);
 

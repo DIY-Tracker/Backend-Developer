@@ -3,11 +3,13 @@ package com.lambdaschool.diytracker.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
 public class Project extends Auditable {
 
+    // TODO: Update getters/setters, toString
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +23,12 @@ public class Project extends Auditable {
             nullable = false)
     @JsonIgnoreProperties("projects")
     private User user;
+
+    private String photourl;
+
+    private List<String> materials;
+
+    private List<String> steps;
 
     public Project() {
     }
