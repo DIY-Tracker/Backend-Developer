@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lambdaschool</groupId>
-    <artifactId>starthere</artifactId>
+    <artifactId>diytracker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>starthere</name>
+    <name>diytracker</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -136,7 +136,7 @@
 
     <build>
         <!--        <finalName>${project.artifactId}</finalName>-->
-        <finalName>lkmarcum-starthere</finalName>
+        <finalName>diy-tracker</finalName>
 
         <plugins>
             <plugin>
