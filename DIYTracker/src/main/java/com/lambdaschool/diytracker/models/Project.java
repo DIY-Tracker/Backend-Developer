@@ -7,7 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-public class Project extends Auditable implements List<Project> {
+public class Project extends Auditable
+{
 
     // TODO: Update getters/setters, toString
 
@@ -26,13 +27,12 @@ public class Project extends Auditable implements List<Project> {
 
     private String description;
 
-
-
-
     private String photoUrl;
-
+    @Column
+    @ElementCollection(targetClass=String.class)
     private List<String> materials;
-
+    @Column
+    @ElementCollection(targetClass=String.class)
     private List<String> steps;
 
     public Project() {

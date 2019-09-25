@@ -39,7 +39,8 @@ public class User extends Auditable
     private List<Useremail> useremails = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",
-    cascade = CascadeType.ALL)
+    cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private List<Project> projects = new ArrayList<>();
 
     
@@ -113,6 +114,16 @@ public class User extends Auditable
     public void setUseremails(List<Useremail> useremails)
     {
         this.useremails = useremails;
+    }
+
+    public List<Project> getProjects()
+    {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects)
+    {
+        this.projects = projects;
     }
 
     public List<SimpleGrantedAuthority> getAuthority()
