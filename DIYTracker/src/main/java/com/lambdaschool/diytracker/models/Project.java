@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-public class Project extends Auditable {
+public class Project extends Auditable implements List<Project> {
 
     // TODO: Update getters/setters, toString
 
@@ -24,7 +24,12 @@ public class Project extends Auditable {
     @JsonIgnoreProperties("projects")
     private User user;
 
-    private String photourl;
+    private String description;
+
+
+
+
+    private String photoUrl;
 
     private List<String> materials;
 
@@ -33,10 +38,15 @@ public class Project extends Auditable {
     public Project() {
     }
 
-    public Project(String projectName, User user) {
+    public Project(String projectName, User user, String description, String photoUrl, List<String> materials, List<String> steps) {
         this.projectName = projectName;
         this.user = user;
+        this.description = description;
+        this.photoUrl = photoUrl;
+        this.materials = materials;
+        this.steps = steps;
     }
+
 
     public long getProjectId() {
         return projectId;
@@ -62,6 +72,38 @@ public class Project extends Auditable {
         this.user = user;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public List<String> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(List<String> materials) {
+        this.materials = materials;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -70,4 +112,6 @@ public class Project extends Auditable {
                 ", user=" + user +
                 '}';
     }
+
+
 }
