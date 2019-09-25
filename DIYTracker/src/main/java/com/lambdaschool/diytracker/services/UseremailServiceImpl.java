@@ -18,7 +18,7 @@ public class UseremailServiceImpl implements UseremailService
     private UseremailRepository useremailrepos;
 
     @Override
-    public List<Useremail> findAll()
+    public List<Useremail> returnAll()
     {
         List<Useremail> list = new ArrayList<>();
         useremailrepos.findAll()
@@ -28,7 +28,7 @@ public class UseremailServiceImpl implements UseremailService
     }
 
     @Override
-    public Useremail findUseremailById(long id)
+    public Useremail findUserEmailById(long id)
     {
         return useremailrepos.findById(id)
                              .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));

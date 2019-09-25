@@ -33,7 +33,7 @@ public class UseremailController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        List<Useremail> allQuotes = useremailService.findAll();
+        List<Useremail> allQuotes = useremailService.returnAll();
         return new ResponseEntity<>(allQuotes, HttpStatus.OK);
     }
 
@@ -47,7 +47,7 @@ public class UseremailController
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        Useremail ue = useremailService.findUseremailById(useremailId);
+        Useremail ue = useremailService.findUserEmailById(useremailId);
         return new ResponseEntity<>(ue, HttpStatus.OK);
     }
 

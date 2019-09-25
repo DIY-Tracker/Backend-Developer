@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UseremailService
 {
-    List<Useremail> findAll();
+        List<Useremail> returnAll();
 
-    Useremail findUseremailById(long id);
+        Useremail findUserEmailById(long id);
 
-    List<Useremail> findByUserName(String username);
+        List<Useremail> findByUserName(String username);
 
-    void delete(long id, boolean isAdmin);
+        void delete(long id, boolean isAdmin);
 
-    Useremail save(Useremail useremail, boolean isAdmin);
-}
+        Useremail save(Useremail useremail, boolean isAdmin);
+        }
