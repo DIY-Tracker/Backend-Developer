@@ -26,11 +26,13 @@ public class ProjectServiceImpl implements ProjectService {
      projectRepos.findAll().iterator().forEachRemaining(projects::add);
      return projects;
     }
+
 //Find all Projects by Username
-    @Override
-    public List<Project> returnProjectsByOwner(String username) {
-        return projectRepos.findProjectsByUser(username);
-    }
+//    @Override
+//    public List<Project> returnProjectsByOwner(String username) {
+//        return projectRepos.findProjectsByUser(username);
+//    }
+
 //Find By ID
     @Override
     public Project findProjectById(long id) {
@@ -45,29 +47,82 @@ public class ProjectServiceImpl implements ProjectService {
         if (projectRepos.findById(id).isPresent()) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-                throw new ResourceNotFoundException("Project with ID " + id + " Can not be found!");
+            if (projectRepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
+            {
+                projectRepos.deleteById(id);
+            }
+            else
+            {
+                throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
+            }
         }
-               // .orElseThrow(() -> new ResourceNotFoundException("Project with ID " + id + " Can not be found!"));
-        projectRepos.deleteById(id);
+        else
+        {
+            throw new ResourceNotFoundException("Project with ID " + id + " Can not be found!");
+        }
     }
 
     @Transactional
     @Override
     public Project save(Project project) {
-        if (projectRepos.findProjectsByUser(project.getProjectName()) != null)
-        {
-            throw new ResourceNotFoundException(project.getProjectName() + " Is already Taken!");
-        }
-        Project newProject = new Project();
+//        if (projectRepos.findProjectsByUser(project.getProjectName()) != null)
+//        {
+//            throw new ResourceNotFoundException(project.getProjectName() + " Is already Taken!");
+//        }
+//        Project newProject = new Project();
+//
+//        newProject.setProjectName(project.getProjectName());
+//        newProject.setDescription(project.getDescription());
+//
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        newProject.setProjectName(project.getProjectName());
-        newProject.setDescription(project.getDescription());
-
+                if (project.getUser().getUsername().equalsIgnoreCase(authentication.getName()))
+                {
+                    return projectRepos.save(project);
+                } else
+                {
+                    throw new ResourceNotFoundException((authentication.getName() + "not authorized to make change"));
+                }
     }
 
     @Override
     public Project update(Project project, long id) {
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext()
+                        .getAuthentication();
+
+        Project currentProject = projectRepos.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project with id " + id + " Not Found!"));
+
+
+                    if (projectRepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
+                    {
+                        if (project.getPhotoUrl()!= null)
+                        {
+                            currentProject.setPhotoUrl(project.getPhotoUrl());
+                        }
+
+                        if (project.getProjectName() != null)
+                        {
+                            currentProject.setProjectName(project.getProjectName());
+                        }
+
+                        if (project.getDescription() != null)
+                        {
+                            currentProject.setDescription(project.getDescription());
+                        }
+                        if (project.getSteps() != null && project.getSteps().size() > 0)
+                        {
+                            currentProject.setSteps(project.getSteps());
+                        }
+                        if (project.getMaterials() != null && project.getMaterials().size() > 0)
+                        {
+                            currentProject.setMaterials(project.getMaterials());
+                        }
+
+                    return projectRepos.save(currentProject);
+                } else
+                {
+                    throw new ResourceNotFoundException(id + " Not current user");
+                }
     }
 
 }

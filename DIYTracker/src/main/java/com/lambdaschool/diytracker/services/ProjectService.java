@@ -9,7 +9,7 @@ public interface ProjectService {
 
     List<Project> returnAllProjects();
 
-    List<Project> returnProjectsByOwner(String username);
+ //   List<Project> returnProjectsByOwner(String username);
 
     Project findProjectById(long id);
 
