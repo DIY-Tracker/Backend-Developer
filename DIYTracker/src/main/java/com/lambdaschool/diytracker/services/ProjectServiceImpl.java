@@ -121,7 +121,7 @@ public class ProjectServiceImpl implements ProjectService {
                     return projectRepos.save(currentProject);
                 } else
                 {
-                    throw new ResourceNotFoundException(id + " Not current user");
+                    throw new ResourceNotFoundException("Project with id " + id + " does not belong to current user.");
                 }
     }
 
